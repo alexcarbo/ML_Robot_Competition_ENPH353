@@ -1,0 +1,2 @@
+March3
+Looking at YOLO for object detection, thinking about using remote control to collect data to train a plate detection model.
