@@ -4,7 +4,7 @@ import numpy as np
 import time
 
 def main():
-    video_directory = "/home/fizzer/Desktop/ML_Robot_Competition_ENPH353/src/data/yellow_car.avi"
+    video_directory = "/home/fizzer/Desktop/ML_Robot_Competition_ENPH353/src/data/green_car.avi"
     directory = "/home/fizzer/Desktop/ML_Robot_Competition_ENPH353/src/data/"
 
     os.chdir(directory)
@@ -13,7 +13,7 @@ def main():
     yellow_max = np.array([35,255,255])
     blue_min = np.array([100,50,50])
     blue_max = np.array([120,200,200])
-    green_min = np.array([70,70,50])
+    green_min = np.array([80,50,50])
     green_max = np.array([90,230,255])
 
     xsum, ysum, xcount, ycount, frameCount, xCenter, yCenter = 0,0,0,0,0,0,0
@@ -27,10 +27,9 @@ def main():
             height, width, layer = frame.shape
             size = (width, height)
 
-            # img = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
+            # Convert image to HSV and then produce a blurred binary frame
             hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-
-            mask = cv2.inRange(hsv, yellow_min, yellow_max)
+            mask = cv2.inRange(hsv, green_min, green_max)
             res = cv2.bitwise_and(frame, frame, mask=mask)
 
             greyFrame = cv2.cvtColor(res, cv2.COLOR_BGR2GRAY)
@@ -39,16 +38,17 @@ def main():
 
             frameArray = np.asarray(blurFrame)
             size = frameArray.shape
+            print(size)
 
-            vertArray = np.zeros((size[0]))
-            horiArray = np.zeros((size[1]))
+            vertArray = np.zeros(height)
+            horiArray = np.zeros((width))
 
             if (frameCount < 120):
                 frameCount += 1
             else:
                 xsum, ysum, xcount, ycount = 0,0,0,0
-                for y in range(size[0]):
-                    for x in range(size[1]):
+                for y in range(height):
+                    for x in range(width):
                         if(frameArray[y][x] > 40):
                             xsum += x
                             ysum += y

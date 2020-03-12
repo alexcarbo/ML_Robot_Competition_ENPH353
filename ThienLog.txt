@@ -16,3 +16,5 @@ I've gotten a bounding box on the 'car' blocks after converting the HSV images t
 frame vertical and horizontally. This only works if there's one car in the image.
 My next task is to allow for the detection of multiple 'cars'. I'm thinking of imlpementing an algorithm to
 detect rises and falls in the binary image.
+
+Spent some time on the updated course collecting more data. Going to update our PID drive to include recording video.
