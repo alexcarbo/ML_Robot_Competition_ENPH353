@@ -1,20 +1,22 @@
 import cv2
 import os
 import numpy as np
-import time
+
+yellow_min = np.array([15,70,20])
+yellow_max = np.array([35,255,255])
+blue_min = np.array([100,50,50])
+blue_max = np.array([120,200,200])
+green_min = np.array([80,50,50])
+green_max = np.array([90,230,255])
+thresh = 10
 
 def main():
-    video_directory = "/home/fizzer/Desktop/ML_Robot_Competition_ENPH353/src/data/green_car.avi"
+    video_directory = "/home/fizzer/Desktop/ML_Robot_Competition_ENPH353/src/data/yellow00.avi"
     directory = "/home/fizzer/Desktop/ML_Robot_Competition_ENPH353/src/data/"
 
     os.chdir(directory)
     vidObj = cv2.VideoCapture(video_directory)
-    yellow_min = np.array([15,70,180])
-    yellow_max = np.array([35,255,255])
-    blue_min = np.array([100,50,50])
-    blue_max = np.array([120,200,200])
-    green_min = np.array([80,50,50])
-    green_max = np.array([90,230,255])
+
 
     xsum, ysum, xcount, ycount, frameCount, xCenter, yCenter = 0,0,0,0,0,0,0
     lower_ybound, upper_ybound, upper_xbound, lower_xbound = 0, 0, 0, 0
@@ -29,7 +31,7 @@ def main():
 
             # Convert image to HSV and then produce a blurred binary frame
             hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-            mask = cv2.inRange(hsv, green_min, green_max)
+            mask = cv2.inRange(hsv, yellow_min, yellow_max)
             res = cv2.bitwise_and(frame, frame, mask=mask)
 
             greyFrame = cv2.cvtColor(res, cv2.COLOR_BGR2GRAY)
@@ -37,8 +39,6 @@ def main():
             blurFrame = cv2.blur(binaryFrame, (3,3))
 
             frameArray = np.asarray(blurFrame)
-            size = frameArray.shape
-            print(size)
 
             vertArray = np.zeros(height)
             horiArray = np.zeros((width))
@@ -55,23 +55,26 @@ def main():
                             horiArray[x] += 1
                             vertArray[y] += 1
 
+                horiArray = [0 if horiArray_ < thresh else int(horiArray_) for horiArray_ in horiArray]
+                vertArray = [0 if vertArray_ < thresh else int(vertArray_) for vertArray_ in vertArray]
                 xcount = int(np.sum(horiArray))
                 ycount = int(np.sum(vertArray))
                 xCenter = int(xsum/xcount)
                 yCenter = int(ysum/ycount)
                 frameCount = 0
 
-                print(horiArray)
+                print("Vert Array")
+                print(vertArray)
                 flagFirst = False
                 lastVal = 0
                 # Vertical Bounds
                 for i in range(len(vertArray)):
                     if (flagFirst == False and vertArray[i] > 20):
-                        print("lower", i)
+                        print("Vert lower", i)
                         lower_ybound = i
                         flagFirst = True
                     if (flagFirst == True and lastVal > vertArray[i] and vertArray[i] < 20):
-                        print("upper", i)
+                        print("Vert upper", i)
                         upper_ybound = i
                         flagFirst = False
                         lastVal = 0
@@ -81,11 +84,11 @@ def main():
                 # Horizontal Bounds
                 for i in range(len(horiArray)):
                     if (flagFirst == False and horiArray[i] > 20):
-                        print("lower", i)
+                        print("Hori lower", i)
                         lower_xbound = i
                         flagFirst = True
                     if (flagFirst == True and lastVal > horiArray[i] and horiArray[i] < 20):
-                        print("upper", i)
+                        print("Hori upper", i)
                         upper_xbound = i
                         flagFirst = False
                         lastVal = 0
