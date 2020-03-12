@@ -10,7 +10,7 @@ def main():
     ANKI_SERIAL = '006046ca'
     ANKI_BEHAVIOR = av.connection.ControlPriorityLevel.OVERRIDE_BEHAVIORS_PRIORITY
 
-    directory = "/home/fizzer/Desktop/ML_Robot_Competition_ENPH353/src/images/"
+    directory = "/home/fizzer/Desktop/ML_Robot_Competition_ENPH353/src/data/"
 
     os.chdir(directory)
 
@@ -21,7 +21,7 @@ def main():
         count = 0
         img_array = []
 
-        robot.motors.set_wheel_motors(10,10)
+        robot.motors.set_wheel_motors(40,40)
         while(True):
             # proximity_data = robot.proximity.last_sensor_reading
             # print(proximity_data.distance.distance_mm)
@@ -35,12 +35,12 @@ def main():
             cv2.imshow('Anki Camera', img)
             cv2.waitKey(3)
 
-            if (count == 1800):
+            if (count == 1200):
                 break
 
             count += 1
 
-        out = cv2.VideoWriter('cross_run.avi', cv2.VideoWriter_fourcc(*'DIVX'), 120, size)
+        out = cv2.VideoWriter('gottagofast.avi', cv2.VideoWriter_fourcc(*'DIVX'), 120, size)
         
         for i in range(len(img_array)):
             out.write(img_array[i])
