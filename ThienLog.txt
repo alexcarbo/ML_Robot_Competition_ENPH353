@@ -1,2 +1,18 @@
-March3
+March 3,2020
 Looking at YOLO for object detection, thinking about using remote control to collect data to train a plate detection model.
+Created a script to take images from Anki and turn them into videos for later analysis
+
+March 5
+Planning on using SIFT to detect the "Cars" and cut away that part of the image
+Update after working with SIFT, now trying to use HSV colors to detect the block. Finding more success and will need to get the
+HSV colors for each block. Afterward I will develop an algorithm to isolate the plates. Requires more thinking
+
+March 12
+New license labels might make it easier to detect the location from the images. I will try to get SIFT to detect the 'car' block
+since I haven't had success using SIFT to isolate the plates themselves. I want to use SIFT to isolate the cars and then splice the
+image to then look for the plates. Currently I have been using HSV to isolate blocks in the images.
+
+I've gotten a bounding box on the 'car' blocks after converting the HSV images to binary and analyzing the amount of pixels in the 
+frame vertical and horizontally. This only works if there's one car in the image.
+My next task is to allow for the detection of multiple 'cars'. I'm thinking of imlpementing an algorithm to
+detect rises and falls in the binary image.
