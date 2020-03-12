@@ -2,12 +2,13 @@ import anki_vector as av
 import cv2
 import numpy as np
 from anki_vector.util import degrees
+from anki_vector.util import Distance
 import time
 
 
 class PID:
 
-    def __init__:
+    def __init__(self):
         self.prev_error = 0
 
 
@@ -35,21 +36,21 @@ class PID:
                 height, width, depth = frame.shape
                 bottom = frame[height-100:height, 100:width-100]
                 bottom = cv2.cvtColor(bottom, cv2.COLOR_BGR2GRAY)
-                ret, bottom = cv2.threshold(bottom,180,255,cv2.THRESH_BINARY)
+                ret, bottom = cv2.threshold(bottom,80,255,cv2.THRESH_BINARY)
                 # cv2.imshow("name", bottom)
                 # cv2.waitKey(3)
                     
 
                 height, width = bottom.shape
-                xCount, yCount, num, avX, avY = 0, 0, 0, 0, 0
+                xCount, yCount, num, avX, avY,y_count = 0, 0, 0, 0, 0, 0
                 max_width_l, max_width_r = 0, width
-
+                isYlow = False
                 for y in range(0, height):
                     max_width_l, max_width_r = 0, width
                     for x in range(0, width):
                         px = bottom[y, x]
                         if px == 255:
-                            if x < 220 and x > max_width_l:
+                            if x < width/2 and x > max_width_l:
                                 max_width_l = x
                             if x > width/2 and x < max_width_r :
                                 max_width_r = x
@@ -60,9 +61,9 @@ class PID:
                             num += 1
                             xCount += x
                             yCount += y
-                            
                 
                 if num > 0:
+                    print("YCOUNT: " + str(y_count))
                     avX = int(xCount/num)
                     print(avX, avY)
                     avY = int(yCount/num)
@@ -70,41 +71,31 @@ class PID:
                     cv2.imshow("namew", bottom)
                     cv2.waitKey(3)
 
-                    self.do_pid(avX, avY)
-                    
-                    
-
-
-
-    def do_pid(self, avX, avY, width):
-        KP = .5500
-        KD = .2200
-
-        errX = -1 * (avX - width/2.0) / (width/2.0 / max_error)
-        isYLow = (avY > 80)
-        if isYLow:
-            if(errX > 0):
-                error = max_error
-            else:
-                error = -1 * max_error
-        else:
-            error = errX
-        
-        if(error != 0):
-            p = KP * error
-            d = KD * 1 * abs(error - self.prev_error)
-            a = p + d
-            l = p + d
-
-            move.linear.x = .6 - (.3 * abs(l))
-            move.angular.z = 1.1*a
-            publisher.publish(move)
-        else:
-            move.linear.x = .6
-            move.angular.z = 0
-            publisher.publish(move)
-
-        self.prev_error = error
+                    base_speed = 40
+                    KP = 1
+                    KD = 1
+                    error = 0
+                    max_error = 2.5
+                    errX = -1 * (avX - width/2.0) / (width/2.0 / max_error)
+                    proximity = robot.proximity.last_sensor_reading
+                    if(proximity is not None):
+                        print("dist: "+ str(proximity.distance.distance_mm))
+                        if(proximity.distance.distance_mm < 75.00):
+                            print("ICEBERG: DEAD AHEAD")
+                            robot.motors.stop_all_motors()
+                            robot.behavior.turn_in_place(degrees(-80))
+                    error = errX
+                    print("Error: " + str(error))
+                    if(error != 0):
+                        p = KP * error
+                        d = KD * 1 * abs(error - self.prev_error)
+                        g = p
+                        print("G: " + str(g)) 
+                    else:
+                        g = 0
+                    print("left: " + str(base_speed-10*g) + "right: " + str(base_speed - 10*g))
+                    robot.motors.set_wheel_motors(base_speed - g*10, base_speed + g*10)
+                    self.prev_error = error
 
 
             
