@@ -83,11 +83,11 @@ class PID:
                     if(proximity is not None):
                         print("dist: "+ str(proximity.distance.distance_mm))
                         if(proximity.distance.distance_mm < 75.00):
-                            robot.behavior.say_text("ICEBERG, DEAD AHEAD")
                             robot.motors.stop_all_motors()
+                            robot.behavior.say_text("ICEBERG, DEAD AHEAD")
                             robot.behavior.turn_in_place(degrees(self.angle))
                             self.count+=1
-                        elif(proximity.distance.distance_mm < 300 and proximity.distance.distance_mm > 290 and (self.count - 1) % 8 == 0):
+                        elif(proximity.distance.distance_mm < 300 and proximity.distance.distance_mm > 280 and (self.count - 1) % 8 == 0):
                             robot.motors.stop_all_motors()
                             robot.behavior.say_text("MIDDLE TURN")
                             time.sleep(1)
