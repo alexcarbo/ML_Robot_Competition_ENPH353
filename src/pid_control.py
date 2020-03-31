@@ -5,6 +5,7 @@ from anki_vector.util import degrees
 from anki_vector.util import Distance
 import time
 import os
+from PIL import Image 
 
 
 class PID:
@@ -25,9 +26,9 @@ class PID:
         # Video initalization
         filmFlag = False
         video = []
-        frameCount, videoCount = 0, 0
-        framesPerVid = 60
-        fps = 6
+        frameCount, videoCount = 0, 2
+        framesPerVid = 150
+        fps = 10
         
 
 
@@ -39,6 +40,10 @@ class PID:
             robot.behavior.set_head_angle(degrees(5.0))
             robot.behavior.set_lift_height(1.0)
             robot.camera.init_camera_feed()
+
+            # battery_state = robot.get_battery_state()
+            # print("Robot battery voltage: {0}".format(battery_state.battery_volts))
+            # print("Robot battery Level: {0}".format(battery_state.battery_level))
             
             while True:
                 # Get image from robot
@@ -107,7 +112,7 @@ class PID:
                     if(proximity is not None):
                         # print("dist: "+ str(proximity.distance.distance_mm))
                         if(proximity.distance.distance_mm < 75.00):
-                            robot.behavior.say_text("ICEBERG DEAD AHEAD")
+                            # robot.behavior.say_text("ICEBERG DEAD AHEAD")
                             robot.motors.stop_all_motors()
                             robot.behavior.turn_in_place(degrees(-80))
                     error = errX
