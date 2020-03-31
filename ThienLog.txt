@@ -18,3 +18,7 @@ My next task is to allow for the detection of multiple 'cars'. I'm thinking of i
 detect rises and falls in the binary image.
 
 Spent some time on the updated course collecting more data. Going to update our PID drive to include recording video.
+
+March 30
+Change of plans to work on simulation now instead. Going to first work on manually controlling the simulation robot in Gazebo and have that record video to be analyzed so I
+can adapt the previous work into something usable for sim

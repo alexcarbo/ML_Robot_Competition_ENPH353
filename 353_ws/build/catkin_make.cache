@@ -1,0 +1,2 @@
+competition_2019t2
+-DCATKIN_DEVEL_PREFIX=/home/fizzer/Desktop/ML_Robot_Competition_ENPH353/353_ws/devel -DCMAKE_INSTALL_PREFIX=/home/fizzer/Desktop/ML_Robot_Competition_ENPH353/353_ws/install -G Unix Makefiles
