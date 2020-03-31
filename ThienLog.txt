@@ -21,4 +21,9 @@ Spent some time on the updated course collecting more data. Going to update our 
 
 March 30
 Change of plans to work on simulation now instead. Going to first work on manually controlling the simulation robot in Gazebo and have that record video to be analyzed so I
-can adapt the previous work into something usable for sim
+can adapt the previous work into something usable for sim.
+
+Goals for today are:
+Implement video capture from manual driving
+Look at the video and transfer the algorithm from real world onto sim
+Isolate license plates
