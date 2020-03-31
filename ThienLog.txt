@@ -27,3 +27,13 @@ Goals for today are:
 Implement video capture from manual driving
 Look at the video and transfer the algorithm from real world onto sim
 Isolate license plates
+
+After working on this for 6 hours I have successfully implemented a video capture script off the simulated robot and saving them to a video folder to develop an
+algorithm to cut away the license plates.
+
+Adjusting some hsv values I have managed to get a bounding box around the cars and cut away those images to them be analyzed for the license plates.
+We can now focus on cropping out the license plates to be fed into a neural net for later which I will work on later this week.
+
+Some issues i'm seeing right now are the time it takes to analyze one frame so I will likely limit the analysis of frames to every 10 or 30 and only
+once the bounding box around the car is large enough for a clear view of the plates. It would also be ideal to only look at a specific section of the
+frame lowering the number of pixels I would need to look at.
