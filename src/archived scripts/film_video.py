@@ -10,7 +10,7 @@ def main():
     ANKI_SERIAL = '006046ca'
     ANKI_BEHAVIOR = av.connection.ControlPriorityLevel.OVERRIDE_BEHAVIORS_PRIORITY
 
-    directory = "/home/fizzer/Desktop/ML_Robot_Competition_ENPH353/src/data/"
+    directory = "/home/fizzer/Desktop/ML_Robot_Competition_ENPH353/video/"
 
     os.chdir(directory)
 
