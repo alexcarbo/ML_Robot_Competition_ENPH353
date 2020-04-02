@@ -54,3 +54,19 @@ Notes:
 Simulated world coordinates in Gazebo
 Start location with blue cars: x -2.2 y -2.4 z 0.05 R 0.0 P 0.0 Y 1.57
 Corner with green cars: x 2.2 -y 2.4 z 0.05 R 0.0 P 0.0 Y 1.57
+
+Progress Updates:
+Currently cleaning up my analysis code to have better readability and optimizing the speed.
+Updated the filters to detect the blue, green, and yellow cars as well as the 
+black border of the license plates.
+
+Some issue using bitwise_and for the black filter, for now I'm using the mask for black instead.
+
+Re-working my detection algorithm to ignore the contribution of the black alphanumerics to get the bounds
+on the license plates by setting a high threshold for the sum of values in each row and column of pixels
+this also acts to require the image be sufficently large enough before the program crops out the license plate
+
+Successfully implemented a plate detection algorithm based off a video, it is able to put bounding boxes
+around the parking and license plates. I used the black mask to count the contribution of black pixels in each
+column and row while filtering out the alphanumerics. Thersholding the transition from low to high in the arrays
+I set the min and max values on x and the y's for the two plates. 
