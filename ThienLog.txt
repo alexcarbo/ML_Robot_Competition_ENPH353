@@ -22,3 +22,15 @@ Spent some time on the updated course collecting more data. Going to update our 
 March 30
 Change of plans to work on simulation now instead. Going to first work on manually controlling the simulation robot in Gazebo and have that record video to be analyzed so I
 can adapt the previous work into something usable for sim
+
+April 2
+Today I plan on speeding up the analysis of images, focussing on the right half of the image, this should also remove issues with seeing two cars in one image as we want to
+focus on the larger and clearer image rather than the one farther back.
+
+Goals and Tasks:
+Determine a good size to crop the image down to before using OpenCV
+Implement vision for all three colours of cars
+Isolate the license plates into their own image to be stored
+Differentiate parking number with plate number
+Begin work on neural network by collecting data from these plates from the robot driving
+Integrate PID with Alex's part of the codebase
