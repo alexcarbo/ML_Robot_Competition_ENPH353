@@ -12,6 +12,8 @@ class PID:
 
     def __init__(self):
         self.prev_error = 0
+        self.count = 0
+        self.angle = -80
 
 
     def main(self):
@@ -102,9 +104,9 @@ class PID:
                     cv2.imshow("namew", bottom)
                     cv2.waitKey(3)
 
-                    base_speed = 40
-                    KP = 1
-                    KD = 1
+                    base_speed = 60
+                    KP = 1.5
+                    KD = .3
                     error = 0
                     max_error = 2.5
                     errX = -1 * (avX - width/2.0) / (width/2.0 / max_error)
@@ -114,7 +116,17 @@ class PID:
                         if(proximity.distance.distance_mm < 75.00):
                             # robot.behavior.say_text("ICEBERG DEAD AHEAD")
                             robot.motors.stop_all_motors()
-                            robot.behavior.turn_in_place(degrees(-80))
+                            robot.behavior.say_text("ICEBERG, DEAD AHEAD")
+                            robot.behavior.turn_in_place(degrees(self.angle))
+                            self.count+=1
+                        elif(proximity.distance.distance_mm < 300 and proximity.distance.distance_mm > 280 and (self.count - 1) % 8 == 0):
+                            robot.motors.stop_all_motors()
+                            robot.behavior.say_text("MIDDLE TURN")
+                            time.sleep(1)
+                            robot.behavior.say_text("MOM GET THE CAMERA")
+                            time.sleep(1)
+                            robot.behavior.turn_in_place(degrees(self.angle - 10))
+                            self.count+=1
                     error = errX
                     # print("Error: " + str(error))
                     if(error != 0):

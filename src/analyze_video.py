@@ -5,18 +5,20 @@ import time
 
 yellow_min = np.array([10,70,75])
 yellow_max = np.array([25,150,200])
-blue_min = np.array([100,50,50])
-blue_max = np.array([120,200,200])
+blue_min = np.array([100,120,0])
+blue_max = np.array([120,255,255])
 green_min = np.array([80,50,50])
 green_max = np.array([90,230,255])
+black_min = np.array([0,0,100])
+black_max = np.array([100,255,125])
 trigger_thresh = 10
 noise_thresh = 12
 binary_thresh = 40
 right_half = 320
 
 def main():
-    video_directory = "/home/fizzer/Desktop/ML_Robot_Competition_ENPH353/src/data/drive0.avi"
-    directory = "/home/fizzer/Desktop/ML_Robot_Competition_ENPH353/src/data/"
+    video_directory = "/home/fizzer/Desktop/ML_Robot_Competition_ENPH353/video/video0.avi"
+    directory = "/home/fizzer/Desktop/ML_Robot_Competition_ENPH353/video/"
 
     os.chdir(directory)
     vidObj = cv2.VideoCapture(video_directory)
@@ -33,16 +35,16 @@ def main():
         if(ret == True):
             
             
-            # 640 x 360 pixels
+            # 640 x 480 pixels
             size = (width, height)
             
             # Convert image to HSV and then produce a blurred binary frame
             hsv = cv2.cvtColor(right_frame, cv2.COLOR_BGR2HSV)
-            mask = cv2.inRange(hsv, yellow_min, yellow_max)
+            mask = cv2.inRange(hsv, blue_min, blue_max)
             res = cv2.bitwise_and(right_frame, right_frame, mask=mask)
 
             greyFrame = cv2.cvtColor(res, cv2.COLOR_BGR2GRAY)
-            ret, binaryFrame = cv2.threshold(greyFrame, 30, 255, cv2.THRESH_BINARY)
+            ret, binaryFrame = cv2.threshold(greyFrame, 0, 255, cv2.THRESH_BINARY)
             blurFrame = cv2.blur(binaryFrame, (5,5))
 
             frameArray = np.asarray(blurFrame)
@@ -112,18 +114,30 @@ def main():
                 frameCount = 0
 
             # Draw a bounding box and circle for the center of mass
-            cv2.rectangle(res, (lower_xbound, lower_ybound), (upper_xbound, upper_ybound), (0,255,0), 1)
+            if ((upper_xbound - lower_xbound > 0) and (upper_ybound - lower_ybound > 0)):
+                cv2.rectangle(res, (lower_xbound, lower_ybound), (upper_xbound, upper_ybound), (0,255,0), 1)
+                car_frame = right_frame[lower_ybound:upper_ybound, lower_xbound:upper_xbound]
+                cv2.imshow("Car", car_frame)
+
+                plateFrame = cv2.cvtColor(car_frame, cv2.COLOR_BGR2HSV)
+                blackMask = cv2.inRange(plateFrame, black_min, black_max) 
+                result = cv2.bitwise_and(car_frame, car_frame, mask = blackMask) 
+                # cv2.imshow("plate", plateFrame)
+                cv2.imshow("result", result)
 
             print(lower_ybound)
             print(upper_ybound)
-            car_frame = right_frame[lower_ybound:upper_ybound, lower_xbound:upper_xbound]
+            print(lower_xbound)
+            print(upper_xbound)
+            
+            
 
             cv2.imshow("Raw", right_frame)
             cv2.imshow("Res", res)
-            cv2.imshow("Car", car_frame)
+            
             cv2.waitKey(3)
             
-            time.sleep(1)
+            # time.sleep(1)
 
         # out = cv2.VideoWriter('analyze.avi', cv2.VideoWriter_fourcc(*'DIVX'), 120, size)
 
