@@ -70,3 +70,8 @@ Successfully implemented a plate detection algorithm based off a video, it is ab
 around the parking and license plates. I used the black mask to count the contribution of black pixels in each
 column and row while filtering out the alphanumerics. Thersholding the transition from low to high in the arrays
 I set the min and max values on x and the y's for the two plates. 
+
+Taking a break but will continue now try to add this detection algorithm on top of a running instance of Gazebo
+
+Running the capture_video node in Gazebo while controling the robot with teleop_twist_keyboard successfully record video
+while under my control.

@@ -1,8 +1,6 @@
 import cv2
 import os
 import numpy as np
-import time
-import matplotlib.pyplot as plt
 
 # This script is to test out object detection algorithms without needing to run Gazebo
 
