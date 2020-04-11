@@ -65,7 +65,7 @@ focus on the larger and clearer image rather than the one farther back.
 * Start location with blue cars: x -2.2 y -2.4 z 0.05 R 0.0 P 0.0 Y 1.57
 * Corner with green cars: x 2.2 -y 2.4 z 0.05 R 0.0 P 0.0 Y 1.57
 
-### Progress Updates
+### Progress Updates:
 
 * Currently cleaning up my analysis code to have better readability and optimizing the speed.
 
@@ -94,9 +94,3 @@ that are skewed from a rectangular image as they currently are.
 * Save pictures license plates driving around. Might need to use a perspective transform for skewed plates
 * Collect images to train a convolutional neural network
 
-## April 3
----
-Today I plan on completing the Todo from last day (April 3) and start work on collecting license plate data by driving around the course manual after reseting the world and its plates. I may want to just hardcode some values for driving to automate this.
-
-### Progress Updates
-* I've worked on cropping out the license plates from the detection algorithm and have now also created a pickle file to keep a running tally of the number of plates saved to continually store the collected plates into a file.
