@@ -105,3 +105,15 @@ Today I plan on completing the Todo from last day (April 3) and start work on co
 ## April 10
 ---
 I had some major issues updating the repo. I think I forgot to commit and push my last update on April 3 so I'm missing a few progress updates. The main idea change is that now I've switched over to using contours and finding the coordinates of the corners using the above mentioned way.
+After fixing the issues in updating the Gazebo repo, Alex and I are moving to local copies which we should've done at the start and only share the neural network, node, and launch files on the repo for now.
+
+## Goal and Tasks
+* Put together the PID and plate detection and see how if behaves
+* Start collecting some data for the neural network
+* Start working on the neural network
+
+## Progress Updates
+* Putting together the pid and plate detection seems to work well. I only made it scan the plates if the contours are a certain size. These files save to a new plate folder well. Some bugs persist with the perspective transform ocassionally.
+* Spent some time cleaning up magic numbers and formatting for DetectPlate.py
+* Made a plate labeller jupyter script for the plate pictures to be fed into a nerual net. I rename the images from a parking##.jpg to their parking number P##.jpg and license plates from license##.jpg to AB##.jpg.
+* Started transfering the CNN from lab 5 over to the competition use case. Adjusted the jupyter script to be a bit cleaner and simpler. Fed it the data collected from the sim world and it has started to recognize some letter. Needs more data which I will do tomorrow.
