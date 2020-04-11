@@ -1,8 +1,8 @@
-# Install script for directory: /home/fizzer/Documents/ML_Robot_Competition_ENPH353/353_ws/src/competition_2019t2
+# Install script for directory: /home/fizzer/Desktop/ML_Robot_Competition_ENPH353/353_ws/src/competition_2019t2
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/fizzer/Documents/ML_Robot_Competition_ENPH353/353_ws/install")
+  set(CMAKE_INSTALL_PREFIX "/home/fizzer/Desktop/ML_Robot_Competition_ENPH353/353_ws/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -38,17 +38,17 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/fizzer/Documents/ML_Robot_Competition_ENPH353/353_ws/build/competition_2019t2/catkin_generated/installspace/competition_2019t2.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/fizzer/Desktop/ML_Robot_Competition_ENPH353/353_ws/build/competition_2019t2/catkin_generated/installspace/competition_2019t2.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/competition_2019t2/cmake" TYPE FILE FILES
-    "/home/fizzer/Documents/ML_Robot_Competition_ENPH353/353_ws/build/competition_2019t2/catkin_generated/installspace/competition_2019t2Config.cmake"
-    "/home/fizzer/Documents/ML_Robot_Competition_ENPH353/353_ws/build/competition_2019t2/catkin_generated/installspace/competition_2019t2Config-version.cmake"
+    "/home/fizzer/Desktop/ML_Robot_Competition_ENPH353/353_ws/build/competition_2019t2/catkin_generated/installspace/competition_2019t2Config.cmake"
+    "/home/fizzer/Desktop/ML_Robot_Competition_ENPH353/353_ws/build/competition_2019t2/catkin_generated/installspace/competition_2019t2Config-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/competition_2019t2" TYPE FILE FILES "/home/fizzer/Documents/ML_Robot_Competition_ENPH353/353_ws/src/competition_2019t2/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/competition_2019t2" TYPE FILE FILES "/home/fizzer/Desktop/ML_Robot_Competition_ENPH353/353_ws/src/competition_2019t2/package.xml")
 endif()
 
