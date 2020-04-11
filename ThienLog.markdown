@@ -100,3 +100,8 @@ Today I plan on completing the Todo from last day (April 3) and start work on co
 
 ### Progress Updates
 * I've worked on cropping out the license plates from the detection algorithm and have now also created a pickle file to keep a running tally of the number of plates saved to continually store the collected plates into a file.
+* Changed the algorthim to use cornerHarris on the contours of the black outline for the license plates. Using this I've extracted the coordinates of the corners to do a perspective transform. These plates are saved in a plates folder with a pickle file updating the tally of plates. 
+
+## April 10
+---
+I had some major issues updating the repo. I think I forgot to commit and push my last update on April 3 so I'm missing a few progress updates. The main idea change is that now I've switched over to using contours and finding the coordinates of the corners using the above mentioned way.
