@@ -1,8 +1,5 @@
 import numpy as np
-<<<<<<< HEAD
 import cv2
-=======
->>>>>>> d35cb0e96b8a269b9aac1677da19f83c08f55f87
 
 # HSV values organized by [Hue, Saturation, Value]. Hue is the colour shade, saturation is of strong
 # that colour is, and value is how bright it is
@@ -21,10 +18,7 @@ MAX_CONTOURS = 2
 CORNERS_NEEDED = 9
 PLATE_HEIGHT = 100
 PLATE_WIDTH = 200
-<<<<<<< HEAD
 PLATE_DIM = (PLATE_WIDTH, PLATE_HEIGHT)
-=======
->>>>>>> d35cb0e96b8a269b9aac1677da19f83c08f55f87
 
 IMSHOW_WAIT = 3
 
@@ -32,7 +26,6 @@ LINE_COLOUR = (105, 255, 180)
 LINE_THICKNESS = 1
 CIRCLE_THICKNESS = 2
 CIRCLE_RADIUS = 7
-<<<<<<< HEAD
 PARKING_HUD = (0, 30)
 LICENSE_HUD = (0, 60)
 FONT = cv2.FONT_HERSHEY_TRIPLEX
@@ -51,5 +44,3 @@ PCHAR0 = (35, 0, 85, 100)
 PCHAR1 = (75, 0, 125, 100)
 PCHAR2 = (120, 0, 170, 100)
 PARKING_CHAR = [PCHAR0, PCHAR1, PCHAR2]
-=======
->>>>>>> d35cb0e96b8a269b9aac1677da19f83c08f55f87

@@ -127,13 +127,9 @@ Today I'm going to test run the plate detection around the whole course by hard 
 * Working on collecting more plates for the neural network
 * Modified the plate generator to fill in the missing alphanumerics I need
 * After adding some more data I trained the neural network. I am not trying to check if the images from the robot can be fed into this trained model by making a new IdentifyPlate class.
-<<<<<<< HEAD
 * Running into an issue with a tensor element not being in the graph when running the loaded model in gazebo to scan plates. I've check that the inputs are the same as the one from Lab 5 which it is.
 * Talked with some classmates and they gave me an answer to solve the problem but I'm not sure why it fixes it. Will ask Miti tomorrow.
 * The neural net can read the license plates so far from a few runs
 * One other thing I made today was a bash script to continuously open Gazebo to refresh the plates but I couldn't get the alias killgazebogym to kill the instance and automate data collection.
 * Cleaning up detectPlate by moving blocks of code into their own methods to make readability easier
 * Added the last pair of plates detected on the HUD of the image feed. The plates are also now logged for later reference.
-=======
-* Running into an issue with a tensor element not being in the graph when running the loaded model in gazebo to scan plates. I've check that the inputs are the same as the one from Lab 5 which it is.
->>>>>>> d35cb0e96b8a269b9aac1677da19f83c08f55f87
