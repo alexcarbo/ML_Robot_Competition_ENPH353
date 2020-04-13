@@ -117,3 +117,14 @@ After fixing the issues in updating the Gazebo repo, Alex and I are moving to lo
 * Spent some time cleaning up magic numbers and formatting for DetectPlate.py
 * Made a plate labeller jupyter script for the plate pictures to be fed into a nerual net. I rename the images from a parking##.jpg to their parking number P##.jpg and license plates from license##.jpg to AB##.jpg.
 * Started transfering the CNN from lab 5 over to the competition use case. Adjusted the jupyter script to be a bit cleaner and simpler. Fed it the data collected from the sim world and it has started to recognize some letter. Needs more data which I will do tomorrow.
+
+## April 12
+---
+Today I'm going to test run the plate detection around the whole course by hard coding the driving for now. Afterwards I'll run the simulation to collect more data for the plates to feed into the neural network. I might try to automate the closing and opening of the world to refresh the plates with a bash file.
+
+## Progress Updates
+* Updated the plate detection to sort the four corner points into a standard ordered set from (top left, top right, bottom left, bottom right). Doing this has sorted out bad perspective changes.
+* Working on collecting more plates for the neural network
+* Modified the plate generator to fill in the missing alphanumerics I need
+* After adding some more data I trained the neural network. I am not trying to check if the images from the robot can be fed into this trained model by making a new IdentifyPlate class.
+* Running into an issue with a tensor element not being in the graph when running the loaded model in gazebo to scan plates. I've check that the inputs are the same as the one from Lab 5 which it is.
