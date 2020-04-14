@@ -33,11 +33,12 @@ class DetectPlate:
         # Flag to prevent continuous capture after detecting a pair of plates
         self.captured_flag = False
         # Flag to save plates images
-        self.save_plate = False
+        self.save_plate = True
         # Controls drawing identified corners and contours
         self.debug = False
         # Flag to display image feed and detected plates
         self.display_plates = False
+        self.hud_display = True
         # Parking and License Plates
         self.parking_label, self.license_label = "Last Parking Spot: ", "Last License Plate: "
         self.cars = []
@@ -76,17 +77,19 @@ class DetectPlate:
                         cv2.imshow("License Plate", license_plate)
                         cv2.waitKey(const.IMSHOW_WAIT)
                     self.captured_flag = True
-            print("Cars: ", self.cars)
+            # print("Cars: ", self.cars)
         else:
             self.captured_flag = False
 
         # Display HUD
-        cv2.putText(image_feed, self.parking_label, const.PARKING_HUD, const.FONT,
-                    const.FONT_SCALE, const.TEXT_COLOUR, const.LINE_THICKNESS, cv2.LINE_AA)
-        cv2.putText(image_feed, self.license_label, const.LICENSE_HUD, const.FONT,
-                    const.FONT_SCALE, const.TEXT_COLOUR, const.LINE_THICKNESS, cv2.LINE_AA)
-        cv2.imshow("Image Feed", image_feed)
-        cv2.waitKey(const.IMSHOW_WAIT)
+
+        if self.hud_display:
+            cv2.putText(image_feed, self.parking_label, const.PARKING_HUD, const.FONT,
+                        const.FONT_SCALE, const.TEXT_COLOUR, const.LINE_THICKNESS, cv2.LINE_AA)
+            cv2.putText(image_feed, self.license_label, const.LICENSE_HUD, const.FONT,
+                        const.FONT_SCALE, const.TEXT_COLOUR, const.LINE_THICKNESS, cv2.LINE_AA)
+            cv2.imshow("Image Feed", image_feed)
+            cv2.waitKey(const.IMSHOW_WAIT)
 
 
     def log_plates(self, parking_plate, license_plate):
@@ -214,7 +217,7 @@ class DetectPlate:
             self.plate_count = self.save_plate_count.get_plate_count()
 
         # Save the plates
-        cv2.imwrite("parking{}.jpg".format(self.plate_count), parking_plate)
+        # cv2.imwrite("parking{}.jpg".format(self.plate_count), parking_plate)
         cv2.imwrite("license{}.jpg".format(self.plate_count), license_plate)
 
         # Update count on the number of plates saved
