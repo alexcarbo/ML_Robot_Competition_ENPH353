@@ -26,7 +26,7 @@ class LineFollower:
 
 
     def process_image(self, data):
-        print("\n State: {}".format(self.state))
+        # print("\n State: {}".format(self.state))
         #set up publisher
         publisher = rospy.Publisher('/cmd_vel', Twist, queue_size = 1)
         move = Twist()
@@ -161,7 +161,6 @@ class LineFollower:
             if error != 0:
                 #checks if Y_avg is low and lots of white pixels dead ahead, means we are at a corner and should turn
                 if (isYLow and cununt >= 30 and self.ignore_low is False and self.state not in [6,10]):
-                    print("Change state")
                     time.sleep(0.1)
                     # print("Start Turn")
                     move.linear.x = 0
@@ -170,15 +169,12 @@ class LineFollower:
                     time.sleep(1)
                     if self.state in [0,3]:
                         self.turn_degrees(115, publisher, "r")
-                        print("if")
                     elif self.state == 7:
                         self.turn_degrees(110, publisher, "r")
                     elif self.state == 8:
                         self.turn_degrees(115, publisher, "r")    
-                        print("elif")
                     else:
                         self.turn_degrees(110, publisher, "r")
-                        print("else")
                     self.state += 1
                 else:
                     #do PID and publish new value
@@ -268,13 +264,6 @@ class LineFollower:
         if mask_sum < 200:
             return True
         return False
-        
-      
-
-
-
-
-
 
     def doStuff(self):
         rospy.init_node('imIn', anonymous=True)

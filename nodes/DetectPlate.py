@@ -34,7 +34,7 @@ class DetectPlate:
         self.captured_flag = False
         self.duplicate_flag = False
         # Flag to save plates images
-        self.save_plate = True
+        self.save_plate = False
         # Controls drawing identified corners and contours
         self.debug = False
         # Flag to display image feed and detected plates
@@ -71,7 +71,6 @@ class DetectPlate:
                     self.log_plates(parking_plate, license_plate)
 
                     if (self.save_plate) and (not self.duplicate_flag):
-                        print(not self.duplicate_flag)
                         self.save_plates(parking_plate, license_plate)
 
                     if self.display_plates:
@@ -90,6 +89,13 @@ class DetectPlate:
                         const.FONT_SCALE, const.TEXT_COLOUR, const.LINE_THICKNESS, cv2.LINE_AA)
             cv2.putText(image_feed, self.license_label, const.LICENSE_HUD, const.FONT,
                         const.FONT_SCALE, const.TEXT_COLOUR, const.LINE_THICKNESS, cv2.LINE_AA)
+            cv2.putText(image_feed, "Logged Cars", (520, 20), const.FONT,
+                        const.FONT_SCALE, const.TEXT_COLOUR, const.LINE_THICKNESS, cv2.LINE_AA)       
+            for i, e in enumerate(self.cars):
+                cv2.putText(image_feed, self.cars[i][0], (520, 10 + 30 * (i + 1)), const.FONT,
+                            const.FONT_SCALE, const.TEXT_COLOUR, const.LINE_THICKNESS, cv2.LINE_AA)
+                cv2.putText(image_feed, self.cars[i][1], (570, 10 + 30 * (i + 1)), const.FONT,
+                            const.FONT_SCALE, const.TEXT_COLOUR, const.LINE_THICKNESS, cv2.LINE_AA)
             cv2.imshow("Image Feed", image_feed)
             cv2.waitKey(const.IMSHOW_WAIT)
 
@@ -102,9 +108,7 @@ class DetectPlate:
         parking_spot = "".join(self.identifier.plateLabel(parking_plate, "parking"))
         license_number = "".join(self.identifier.plateLabel(license_plate, "license"))
         # Log parking spot and license number pairs
-        print((parking_spot, license_number))
-        print(self.cars)
-        if (parking_spot, license_number) in self.cars:
+        if parking_spot in [i[0] for i in self.cars]:
             self.duplicate_flag = True
             return
         else:
