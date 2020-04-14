@@ -133,3 +133,7 @@ Today I'm going to test run the plate detection around the whole course by hard 
 * One other thing I made today was a bash script to continuously open Gazebo to refresh the plates but I couldn't get the alias killgazebogym to kill the instance and automate data collection.
 * Cleaning up detectPlate by moving blocks of code into their own methods to make readability easier
 * Added the last pair of plates detected on the HUD of the image feed. The plates are also now logged for later reference.
+
+## April 13
+---
+Not much work today, talked to Miti about the load_model error for using predict. Also talked about fixing my bash script to auto run and close gazebo to collect data. Just needed an & at the end of the gazebo call to give control in the terminal.

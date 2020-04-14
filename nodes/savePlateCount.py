@@ -5,7 +5,7 @@ import pickle
 class savePlateCount:
     def __init__(self):
         self.plate_count = {}
-        self.directory = "/home/fizzer/Desktop/ML_Robot_Competition_ENPH353/plates/"
+        self.directory = "/home/fizzer/Desktop/353_ws/plates/"
         os.chdir(self.directory)
 
     def load_plates(self, filename):
