@@ -107,12 +107,12 @@ Today I plan on completing the Todo from last day (April 3) and start work on co
 I had some major issues updating the repo. I think I forgot to commit and push my last update on April 3 so I'm missing a few progress updates. The main idea change is that now I've switched over to using contours and finding the coordinates of the corners using the above mentioned way.
 After fixing the issues in updating the Gazebo repo, Alex and I are moving to local copies which we should've done at the start and only share the neural network, node, and launch files on the repo for now.
 
-## Goal and Tasks
+### Goal and Tasks
 * Put together the PID and plate detection and see how if behaves
 * Start collecting some data for the neural network
 * Start working on the neural network
 
-## Progress Updates
+### Progress Updates
 * Putting together the pid and plate detection seems to work well. I only made it scan the plates if the contours are a certain size. These files save to a new plate folder well. Some bugs persist with the perspective transform ocassionally.
 * Spent some time cleaning up magic numbers and formatting for DetectPlate.py
 * Made a plate labeller jupyter script for the plate pictures to be fed into a nerual net. I rename the images from a parking##.jpg to their parking number P##.jpg and license plates from license##.jpg to AB##.jpg.
@@ -122,7 +122,7 @@ After fixing the issues in updating the Gazebo repo, Alex and I are moving to lo
 ---
 Today I'm going to test run the plate detection around the whole course by hard coding the driving for now. Afterwards I'll run the simulation to collect more data for the plates to feed into the neural network. I might try to automate the closing and opening of the world to refresh the plates with a bash file.
 
-## Progress Updates
+### Progress Updates
 * Updated the plate detection to sort the four corner points into a standard ordered set from (top left, top right, bottom left, bottom right). Doing this has sorted out bad perspective changes.
 * Working on collecting more plates for the neural network
 * Modified the plate generator to fill in the missing alphanumerics I need
@@ -137,3 +137,12 @@ Today I'm going to test run the plate detection around the whole course by hard 
 ## April 13
 ---
 Not much work today, talked to Miti about the load_model error for using predict. Also talked about fixing my bash script to auto run and close gazebo to collect data. Just needed an & at the end of the gazebo call to give control in the terminal.
+
+### Tasks
+* Need to train the neural network a bit more
+* Check the cropping of images that go into the loaded model and its prediction
+
+### Progress Update
+* Collect a few hundred plates and optimized the locations to crop the images
+* Looking at the predictions the neural net seems to struggle with the parking plate numbers, might have to do with the placement of the characters
+* Updated the neural network training jupyter script to separate the data into a training, validate, and check set.

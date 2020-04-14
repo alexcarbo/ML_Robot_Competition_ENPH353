@@ -14,6 +14,7 @@ class IdentifyPlate:
         self.plateset = []
         self.position_set = []
         self.plate_length = 0
+        self.check_crop = False
 
         ### Not sure what this does but it fixes my issue with tensors not being an element in a graph
         config = tf.ConfigProto(
@@ -30,7 +31,7 @@ class IdentifyPlate:
         backend.set_session(self.session)
         ###
 
-        self.conv_model = load_model("/home/fizzer/Desktop/353_ws/neural_net/alphanumeric_model.h5")
+        self.conv_model = load_model("/home/fizzer/Desktop/353_ws/neural_net/Apr14.h5")
         self.alphanumeric = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
         self.int_to_char = dict((i, c) for i, c in enumerate(self.alphanumeric))
 
@@ -53,7 +54,15 @@ class IdentifyPlate:
         
         for i in range(self.plate_length):      
             imgset.append(image[self.position_set[i][1]:self.position_set[i][3], self.position_set[i][0]:self.position_set[i][2]])   
-        
+
+        if self.check_crop and plate_type == "parking":    
+            cv2.imshow("char 0", imgset[0])
+            cv2.imshow("char 1", imgset[1])
+            cv2.imshow("char 2", imgset[2])
+            if plate_type == "license":
+                cv2.imshow("char 3", imgset[3])
+            cv2.waitKey(3)
+
         checkset = np.array(imgset)/255.0
 
         for i, e in enumerate(checkset):

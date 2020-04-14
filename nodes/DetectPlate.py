@@ -32,12 +32,13 @@ class DetectPlate:
         self.plate_count = 0
         # Flag to prevent continuous capture after detecting a pair of plates
         self.captured_flag = False
+        self.duplicate_flag = False
         # Flag to save plates images
         self.save_plate = True
         # Controls drawing identified corners and contours
         self.debug = False
         # Flag to display image feed and detected plates
-        self.display_plates = False
+        self.display_plates = True
         self.hud_display = True
         # Parking and License Plates
         self.parking_label, self.license_label = "Last Parking Spot: ", "Last License Plate: "
@@ -69,7 +70,8 @@ class DetectPlate:
                     parking_plate, license_plate = self.get_plates(corners, image_feed)
                     self.log_plates(parking_plate, license_plate)
 
-                    if self.save_plate:
+                    if (self.save_plate) and (not self.duplicate_flag):
+                        print(not self.duplicate_flag)
                         self.save_plates(parking_plate, license_plate)
 
                     if self.display_plates:
@@ -100,10 +102,17 @@ class DetectPlate:
         parking_spot = "".join(self.identifier.plateLabel(parking_plate, "parking"))
         license_number = "".join(self.identifier.plateLabel(license_plate, "license"))
         # Log parking spot and license number pairs
-        self.cars.append((parking_spot, license_number))
-        # Update HUD strings                  
-        self.parking_label = self.parking_label+parking_spot
-        self.license_label = self.license_label+license_number
+        print((parking_spot, license_number))
+        print(self.cars)
+        if (parking_spot, license_number) in self.cars:
+            self.duplicate_flag = True
+            return
+        else:
+            self.cars.append((parking_spot, license_number))
+            # Update HUD strings                  
+            self.parking_label = self.parking_label+parking_spot
+            self.license_label = self.license_label+license_number
+            self.duplicate_flag = False
 
     def find_contours(self, image):
         "Finds two plate contours from an image"
