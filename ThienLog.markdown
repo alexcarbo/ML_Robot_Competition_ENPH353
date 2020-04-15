@@ -146,3 +146,7 @@ Not much work today, talked to Miti about the load_model error for using predict
 * Collect a few hundred plates and optimized the locations to crop the images
 * Looking at the predictions the neural net seems to struggle with the parking plate numbers, might have to do with the placement of the characters
 * Updated the neural network training jupyter script to separate the data into a training, validate, and check set.
+
+## April 14
+---
+Just running the simulation for the best run today and some minor adjustments to the model are being made.
