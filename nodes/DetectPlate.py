@@ -70,6 +70,8 @@ class DetectPlate:
                     parking_plate, license_plate = self.get_plates(corners, image_feed)
                     self.log_plates(parking_plate, license_plate)
 
+                    # Save and record the plate if it has not been saved already
+                    # and saving of plates is enable for data collection
                     if (self.save_plate) and (not self.duplicate_flag):
                         self.save_plates(parking_plate, license_plate)
 
@@ -78,17 +80,17 @@ class DetectPlate:
                         cv2.imshow("License Plate", license_plate)
                         cv2.waitKey(const.IMSHOW_WAIT)
                     self.captured_flag = True
-            # print("Cars: ", self.cars)
         else:
             self.captured_flag = False
 
         # Display HUD
-
         if self.hud_display:
+            # Displays the last new collected set of plates
             cv2.putText(image_feed, self.parking_label, const.PARKING_HUD, const.FONT,
                         const.FONT_SCALE, const.TEXT_COLOUR, const.LINE_THICKNESS, cv2.LINE_AA)
             cv2.putText(image_feed, self.license_label, const.LICENSE_HUD, const.FONT,
                         const.FONT_SCALE, const.TEXT_COLOUR, const.LINE_THICKNESS, cv2.LINE_AA)
+            # Displays the history of logged plates
             cv2.putText(image_feed, "Logged Cars", (520, 20), const.FONT,
                         const.FONT_SCALE, const.TEXT_COLOUR, const.LINE_THICKNESS, cv2.LINE_AA)       
             for i, e in enumerate(self.cars):

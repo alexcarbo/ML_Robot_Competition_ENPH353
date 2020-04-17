@@ -149,4 +149,8 @@ Not much work today, talked to Miti about the load_model error for using predict
 
 ## April 14
 ---
-Just running the simulation for the best run today and some minor adjustments to the model are being made.
+Just running the simulation for the best run today and some minor adjustments to the model are being made. No major changes over than adjusting values in the PID due to differences on Alex's computer and mine. Recorded our best run today with 100% identification all all plate. Some issues I ran into was one plate out of all the collected plates returning one wrong character. I think if I trained the model a bit more on the parking plate this might fix it. But for the most part 95% of the plates are properly identified coming in at different angles and not duplicating entries. 
+
+## April 16
+---
+Cleaning up documentation in constants, capture_video, DetectPlate, and IdentifyPlate files.

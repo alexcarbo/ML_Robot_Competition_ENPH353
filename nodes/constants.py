@@ -1,6 +1,8 @@
 import numpy as np
 import cv2
 
+'''This file contains constants used in the plate detection files'''
+
 # HSV values organized by [Hue, Saturation, Value]. Hue is the colour shade, saturation is of strong
 # that colour is, and value is how bright it is
 YELLOW_MIN = np.array([10, 50, 0])
@@ -12,6 +14,7 @@ GREEN_MAX = np.array([70, 255, 255])
 BLACK_MIN = np.array([0, 0, 0])
 BLACK_MAX = np.array([255, 255, 50])
 
+# Settings for plate detection
 CONTOUR_AREA_MIN = 2500
 CONTOUR_MIN_Y_DIST = 40
 MAX_CONTOURS = 2
@@ -20,8 +23,10 @@ PLATE_HEIGHT = 100
 PLATE_WIDTH = 200
 PLATE_DIM = (PLATE_WIDTH, PLATE_HEIGHT)
 
+# Imshow wait time
 IMSHOW_WAIT = 3
 
+# CV2 Drawing parameters
 LINE_COLOUR = (105, 255, 180)
 LINE_THICKNESS = 1
 CIRCLE_THICKNESS = 2

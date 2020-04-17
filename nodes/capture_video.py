@@ -14,6 +14,7 @@ import rospy
 from std_msgs.msg import String
 
 class capture_video:
+    ''' Saves video from gazebo to develop plate detection locally from avi files'''
     FRAMES_PER_VIDEO = 1200
 
     def __init__(self):

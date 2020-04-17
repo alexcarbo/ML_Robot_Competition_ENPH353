@@ -31,11 +31,13 @@ class IdentifyPlate:
         backend.set_session(self.session)
         ###
 
+        # Load the model to use and setup the one hot encoding
         self.conv_model = load_model("/home/fizzer/Desktop/353_ws/neural_net/Apr14.h5")
         self.alphanumeric = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
         self.int_to_char = dict((i, c) for i, c in enumerate(self.alphanumeric))
 
     def plateLabel(self, image, plate_type):
+        # Prepare image to be spliced into sections
         rgb_image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         imgset = []
         prediction = []
@@ -50,11 +52,13 @@ class IdentifyPlate:
             self.plate_length = 3
 
         else:
-            print("Invalid")
+            print("Invalid plate type")
         
+        # Add characters from the plates to a list
         for i in range(self.plate_length):      
             imgset.append(image[self.position_set[i][1]:self.position_set[i][3], self.position_set[i][0]:self.position_set[i][2]])   
 
+        # Used for debugging the character locations on the splices
         if self.check_crop and plate_type == "parking":    
             cv2.imshow("char 0", imgset[0])
             cv2.imshow("char 1", imgset[1])
@@ -65,20 +69,14 @@ class IdentifyPlate:
 
         checkset = np.array(imgset)/255.0
 
+        # Get the predictions from the model
         for i, e in enumerate(checkset):
             img_aug = np.expand_dims(checkset[i], axis=0)
             ### These two with statement are also added to fix the issue
             with self.session.as_default():
                 with self.session.graph.as_default():
                     predict = self.conv_model.predict(img_aug)[0]
-                    prediction.append(self.get_char(np.argmax(predict)))
-
-            plt.figure()
-            plt.imshow(checkset[i])
-            caption = ("Character\n Predicted: {:.2}"
-                        .format(self.get_char(np.argmax(predict))))
-            plt.text(0.5, 0.5, caption, color='orange', fontsize = 16,
-            horizontalalignment='left', verticalalignment='bottom') 
+                    prediction.append(self.get_char(np.argmax(predict))) 
 
         return prediction
 
