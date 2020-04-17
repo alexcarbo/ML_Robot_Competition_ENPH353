@@ -26,7 +26,7 @@ class LineFollower:
 
 
     def process_image(self, data):
-        # print("\n State: {}".format(self.state))
+        print("\n State: {}".format(self.state))
         #set up publisher
         publisher = rospy.Publisher('/cmd_vel', Twist, queue_size = 1)
         move = Twist()
@@ -38,7 +38,7 @@ class LineFollower:
             return
         
         if self.state == 13:
-            # print("YAY")
+            print("YAY")
             move.linear.x = 0
             move.angular.z = 1
             publisher.publish(move)
@@ -56,7 +56,7 @@ class LineFollower:
                 move.linear.x = 0
                 move.angular.z = 0
                 publisher.publish(move)
-                # print("Man in Crosswalk")
+                print("Man in Crosswalk")
                 return
         
             
@@ -66,8 +66,8 @@ class LineFollower:
         small = frame[height-down:height,:]
 
         #show FOV of PID
-        # cv2.imshow("bgr", small)
-        # cv2.waitKey(3)
+        cv2.imshow("bgr", small)
+        cv2.waitKey(3)
 
         #check for crosswalk
         start_walk, see_walk = self.is_crosswalk(small)
@@ -75,22 +75,22 @@ class LineFollower:
             if self.state in [6,10]:
                 pass
             elif self.state == 1:
-                # print("----CROSSWALK----")
+                print("----CROSSWALK----")
                 move.linear.x = 0
                 move.angular.z = 0
                 publisher.publish(move)
                 time.sleep(0.5)
-                self.turn_degrees(125, publisher, "r")
+                self.turn_degrees(72, publisher, "r")
                 self.state += 1
                 self.ignore_next = True
                 time.sleep(0.5)
             elif self.state in [5,9]:
-                # print("----CROSSWALK----")
+                print("----CROSSWALK----")
                 move.linear.x = 0
                 move.angular.z = 0
                 publisher.publish(move)
                 time.sleep(0.1)
-                # print("Need to Cross Crosswalk")
+                print("Need to Cross Crosswalk")
                 self.state += 1
                 self.ignore_next = True
                 time.sleep(0.1)
@@ -137,7 +137,7 @@ class LineFollower:
             px = bottom[y, width/2]
             if px == 255:
                 cununt += 1
-        # print("Cununt: " + str(cununt))
+        print("Cununt: " + str(cununt))
     
         
         #if any black pixels in area to search do PID otherwise keep doing what doing
@@ -162,19 +162,17 @@ class LineFollower:
                 #checks if Y_avg is low and lots of white pixels dead ahead, means we are at a corner and should turn
                 if (isYLow and cununt >= 30 and self.ignore_low is False and self.state not in [6,10]):
                     time.sleep(0.1)
-                    # print("Start Turn")
+                    print("Start Turn")
                     move.linear.x = 0
                     move.angular.z = 0
                     publisher.publish(move)
                     time.sleep(1)
                     if self.state in [0,3]:
-                        self.turn_degrees(115, publisher, "r")
-                    elif self.state == 7:
-                        self.turn_degrees(110, publisher, "r")
+                        self.turn_degrees(65, publisher, "r")
                     elif self.state == 8:
-                        self.turn_degrees(115, publisher, "r")    
+                        self.turn_degrees(80, publisher, "r")    
                     else:
-                        self.turn_degrees(110, publisher, "r")
+                        self.turn_degrees(75, publisher, "r")
                     self.state += 1
                 else:
                     #do PID and publish new value
@@ -191,8 +189,8 @@ class LineFollower:
             if(self.state == 11):
                 if self.elestart == 0:
                     self.elestart = time.time()
-                # print(time.time() - self.elestart)
-                if self.elestart != 0 and time.time() - self.elestart > 6.5:
+                print(time.time() - self.elestart)
+                if self.elestart != 0 and time.time() - self.elestart > 4.5:
                     self.turn_degrees(85, publisher, "r")
                     self.state += 1
         
@@ -215,7 +213,7 @@ class LineFollower:
         time.sleep(time_to)
         move.angular.z = 0
         publisher.publish(move)
-        # print("End Turn")
+        print("End Turn")
         time.sleep(1)
 
     def is_crosswalk(self, image):
@@ -236,7 +234,7 @@ class LineFollower:
 
         mask = mask0 + mask1
         mask_sum = np.sum(mask)
-        # print("red mask: " + str(mask_sum))
+        print("red mask: " + str(mask_sum))
         #threshold for action - close enough to crosswalk
         start_sum = False
         see_sum = False
@@ -255,15 +253,22 @@ class LineFollower:
         upper_blue = np.array([140,255,255])
         mask = cv2.inRange(hsv, lower_blue, upper_blue)
         mask = mask[:,0:420]
-        # cv2.imshow("blue mask walk", mask)
-        # cv2.waitKey(3)
+        cv2.imshow("blue mask walk", mask)
+        cv2.waitKey(3)
 
         mask_sum = np.sum(mask)
 
-        # print("blue mask: {}".format(mask_sum))
+        print("blue mask: {}".format(mask_sum))
         if mask_sum < 200:
             return True
         return False
+        
+      
+
+
+
+
+
 
     def doStuff(self):
         rospy.init_node('imIn', anonymous=True)
