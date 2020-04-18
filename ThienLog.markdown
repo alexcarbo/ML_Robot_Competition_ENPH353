@@ -154,3 +154,7 @@ Just running the simulation for the best run today and some minor adjustments to
 ## April 16
 ---
 Cleaning up documentation in constants, capture_video, DetectPlate, and IdentifyPlate files.
+
+## April 18
+---
+Had to record a better run under 4 minutes. Trained a new model with extra parking plates since it was failing the most on those.
