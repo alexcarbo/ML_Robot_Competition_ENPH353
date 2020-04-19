@@ -157,4 +157,4 @@ Cleaning up documentation in constants, capture_video, DetectPlate, and Identify
 
 ## April 18
 ---
-Had to record a better run under 4 minutes. Trained a new model with extra parking plates since it was failing the most on those.
+Had to record a better run under 4 minutes. Trained a new model with extra parking plates since it was failing the most on those. After doing 35 runs we mangaed to have a perfect run in under 4 minutes. Some issues that came up was the PID driving differently on my computer verus Alex's computer. Out of the 35 runs the plate detection only misread parking plates once in two runs.
